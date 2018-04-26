@@ -21,15 +21,16 @@ public class Controller {
 
     private FileChooser fileChooser = new FileChooser();
 
-    FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg, *.jpeg)", "*.JPG","*.JPEG");
-    FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-    FileChooser.ExtensionFilter extFilterTIFF = new FileChooser.ExtensionFilter("TIFF files (*.tiff, *.tif)", "*.TIF","*.TIFF");
-    FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
-    FileChooser.ExtensionFilter extFilterGIF = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
-    FileChooser.ExtensionFilter extFilterRAW = new FileChooser.ExtensionFilter("RAW files (*.raw, *.cr2, *.nef)", "*.RAW","*.CR2","*.NEF");
+    private FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg, *.jpeg)", "*.JPG","*.JPEG");
+    private FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+    private FileChooser.ExtensionFilter extFilterTIFF = new FileChooser.ExtensionFilter("TIFF files (*.tiff, *.tif)", "*.TIF","*.TIFF");
+    private FileChooser.ExtensionFilter extFilterBMP = new FileChooser.ExtensionFilter("BMP files (*.bmp)", "*.BMP");
+    private FileChooser.ExtensionFilter extFilterGIF = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.GIF");
+    private FileChooser.ExtensionFilter extFilterRAW = new FileChooser.ExtensionFilter("RAW files (*.raw, *.cr2, *.nef)", "*.RAW","*.CR2","*.NEF");
 
-    FileChooser.ExtensionFilter extFilterIMAGES = new FileChooser.ExtensionFilter("all Image Files","*.RAW","*.CR2","*.NEF","*.GIF","*.BMP","*.TIF","*.TIFF","*.PNG","*.JPG","*.JPEG");
+    private FileChooser.ExtensionFilter extFilterIMAGES = new FileChooser.ExtensionFilter("all Image Files","*.RAW","*.CR2","*.NEF","*.GIF","*.BMP","*.TIF","*.TIFF","*.PNG","*.JPG","*.JPEG");
 
+    //Array of BufferedImages to be previewed and saved from
     private BufferedImage[] photos = new BufferedImage[3];
 
     private DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -54,8 +55,6 @@ public class Controller {
     private Button addPhotosButton;
     @FXML
     private Label savingText;
-    @FXML
-    private Button closeSavedDialogButton;
 
     public void changeViewToAddPage(){
         addPageAnchor.setVisible(true);
@@ -73,7 +72,7 @@ public class Controller {
 
     public void getPhotoOne(){
         File file =fileChooser.showOpenDialog(null);
-        BufferedImage bufferedPreview1 = null;
+        BufferedImage bufferedPreview1;
         try {
             FileInputStream input = new FileInputStream(file);
             bufferedPreview1 =ImageIO.read(input);
@@ -83,14 +82,12 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void getPhotoTwo(){
         fileChooser.getExtensionFilters().addAll(extFilterIMAGES,extFilterBMP,extFilterGIF,extFilterJPG,extFilterPNG,extFilterRAW,extFilterTIFF);
         File file =fileChooser.showOpenDialog(null);
-        BufferedImage bufferedPreview2 = null;
+        BufferedImage bufferedPreview2;
         try {
             FileInputStream input = new FileInputStream(file);
             bufferedPreview2 =ImageIO.read(input);
@@ -106,7 +103,7 @@ public class Controller {
 
         fileChooser.getExtensionFilters().addAll(extFilterIMAGES,extFilterBMP,extFilterGIF,extFilterJPG,extFilterPNG,extFilterRAW,extFilterTIFF);
         File file =fileChooser.showOpenDialog(null);
-        BufferedImage bufferedPreview3 = null;
+        BufferedImage bufferedPreview3;
         try {
             FileInputStream input = new FileInputStream(file);
             bufferedPreview3 =ImageIO.read(input);
@@ -125,11 +122,21 @@ public class Controller {
                 if(photos[x]!=null) {
                     String locText = locationTextBox.getText().replace(' ', '_');
                     String currentDir = null;
+
+                    //This option allows final functionality as a standalone
                     try {
+
                         currentDir = new File(".").getCanonicalPath();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    //End standalone option
+
+                    //This option allows functionality within the development environment
+                    //currentDir = new File("src").getAbsolutePath();
+                    //End development option
+
                     File outputFile = new File(currentDir+"\\park_Pictures_Folder\\" + locText + "_" + datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "_" + (x + 1) + ".png");
 
                     try {
@@ -160,28 +167,36 @@ public class Controller {
         savingText.setText("Now saving... Please wait...");
         File selectedDirectory = directoryChooser.showDialog(null);
         String currentDir = null;
+
+        //This option allows functionality as a standalone
         try {
             currentDir = new File(".").getCanonicalPath();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //End standalone option
+
+        //This option allows functionality within the development environment
+        //currentDir = new File("src").getAbsolutePath();
+        //End standalone option
+
         File parentDirectory = new File(currentDir+"\\park_Pictures_Folder");
         File[] files = parentDirectory.listFiles();
-        BufferedImage image = null;
+        BufferedImage image;
         if(selectedDirectory!=null) {
 
 
             int x = 0;
-            while (x < files.length) {
 
+            //Although this while statement may produce null files, saving null files is inconsequential due to no resource costs
+            while (x < files.length) {
                 try {
                     FileInputStream input = new FileInputStream(files[x]);
                     image = ImageIO.read(input);
                     ImageIO.write(image, "png", new File(selectedDirectory + "\\" + files[x].getName()));
                 } catch (IOException e) {
-
+                    e.printStackTrace();
                 }
-
                 x++;
             }
             savingText.setText("Saving complete!");
@@ -197,6 +212,5 @@ public class Controller {
         savedDialog.setVisible(false);
         savedDialog.setDisable(true);
     }
-
 
 }

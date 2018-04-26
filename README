@@ -1,11 +1,29 @@
-This usb drive is a Travel Bug dead-drop photo sharing system.
+This application is to be placed on a usb drive for use as a Travel Bug dead-drop photo sharing system. Dead-drops are a
+way of hiding and sharing information secretly without direct hand-offs. This drive is to be used for any photos of
+nature that you would like to share on it as a way to share user experiences in nature with complete strangers. It is
+encouraged to take this drive to a new Geocache, in a different place from where you found it, after you upload a
+few photos of your own from the place you had found it. You are free to download and use any photos that you would like
+from this drive. All the images that are saved to this drive are forfeited from private possession and are released to
+the public domain.
 
-Dead-drops are ways of hiding and sharing information secretly without direct hand-offs.
 
-This drive is to be used for any photos of nature that you would like to share on it.
 
-It is encouraged to take this drive to a new Geocache, in a different place from where you found it, after you upload a few photos of your own from the place you had found it.
+To save your own copy (instructions for use with IntelliJ IDEA 2017.2.5)
 
-You are free to download and use any photos that you would like from this drive.
-
-All the images that are saved to this drive are forfeited from private possession and are released to the public domain.
+0. Clone the repository
+1. Open the repository in IntelliJ IDEA
+2. Go to File->Project Structure
+3. Select the "Artifacts" tab
+4. Check the list to the right for the option "Park Plant"
+5. If "Park Plant" is available, skip to step 6.
+    5.1. If "Park Plant" is not available, click the green "+" button
+    5.2. Select "JavaFX Application," then "from module Park Plant"
+6. Select "Park Plant" from the list and select the JavaFX tab
+7. Select the ellipses button to the right ("...") and select Search by Name
+8. Search for "Main", and select the result
+9. Under the "Native Bundle" option, select "exe" and click "OK"
+10. Select "Build" from the toolbar, then select "Build Artifacts"
+11. Once the operation concludes, follow the directories "out"->"artifacts"->"Park_Plant"
+12. Right click "Park_Plant" and click "Show in Explorer"
+13. Copy the entire "Park_Plant" folder from its location to an empty USB drive
+14. Park Plant is now ready to run! Click the JAR file to begin
