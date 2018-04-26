@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="baseLayer" fx:id="baseLayer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
-<AnchorPane id="mainPageAnchor" fx:id="mainPageAnchor" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane id="mainPageAnchor" fx:id="mainPageAnchor" disable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(&quot;resources/Park_Plant_Background.png&quot;);" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
    <children>
       <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -41,9 +41,9 @@
                   <Button id="toAddButton" fx:id="addPhotosButton" layoutX="84.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#changeViewToAddPage" text="Add Photos" GridPane.columnIndex="2" />
                </children>
             </GridPane>
-            <Label text="Park Plant is a dead drop photo sharing system of nature photos from state/ national parks, forests, and preserves. It is encouraged that whoever finds this hides it in a new park after saving the photos on it and adding their own photos to the drive of the park where it was found." textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label text="Park Plant is a dead drop photo sharing system of nature photos from state/ national parks, forests, and preserves. It is encouraged that whoever finds this hides it in a new park after saving the photos on it and adding their own photos to the drive of the park where it was found." textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets left="250.0" right="250.0" />
+                  <Insets left="200.0" right="200.0" />
                </GridPane.margin>
                <font>
                   <Font size="15.0" />
@@ -62,7 +62,7 @@
 
 
 </AnchorPane>
-    <AnchorPane id="addPageAnchor" fx:id="addPageAnchor" disable="false" prefHeight="400.0" prefWidth="600.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane id="addPageAnchor" fx:id="addPageAnchor" disable="true" prefHeight="400.0" prefWidth="600.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
             <GridPane layoutX="36.0" layoutY="77.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columnConstraints>

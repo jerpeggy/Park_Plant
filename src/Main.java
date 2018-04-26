@@ -3,7 +3,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -22,7 +21,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         Parent mainRoot = null;
         try {
-            mainRoot = FXMLLoader.load(getClass().getResource("UiController.fxml"));
+            mainRoot = FXMLLoader.load(getClass().getResource("UiView.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,6 +29,7 @@ public class Main extends Application {
         logoBannerView = new ImageView(new Image(getClass().getResourceAsStream("resources/Park_Plant_Banner.png")));
         primaryStage.setTitle("Park Plant");
         primaryStage.setScene(new Scene(mainRoot,800,600));
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }
