@@ -2,6 +2,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,6 +39,8 @@ public class Controller {
     @FXML
     private AnchorPane addPageAnchor;
     @FXML
+    private AnchorPane savedDialog;
+    @FXML
     private TextField locationTextBox;
     @FXML
     private DatePicker datePicker;
@@ -49,6 +52,10 @@ public class Controller {
     private ImageView photoViewer3;
     @FXML
     private Button addPhotosButton;
+    @FXML
+    private Label savingText;
+    @FXML
+    private Button closeSavedDialogButton;
 
     public void changeViewToAddPage(){
         addPageAnchor.setVisible(true);
@@ -117,7 +124,13 @@ public class Controller {
             while(x<photos.length){
                 if(photos[x]!=null) {
                     String locText = locationTextBox.getText().replace(' ', '_');
-                    File outputFile = new File("src\\park_Pictures_Folder\\" + locText + "_" + datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "_" + (x + 1) + ".png");
+                    String currentDir = null;
+                    try {
+                        currentDir = new File(".").getCanonicalPath();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    File outputFile = new File(currentDir+"\\park_Pictures_Folder\\" + locText + "_" + datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "_" + (x + 1) + ".png");
 
                     try {
                         ImageIO.write(photos[x], "png", outputFile);
@@ -141,22 +154,48 @@ public class Controller {
     }
 
     public void saveImagesFromDrive(){
+        savedDialog.setVisible(true);
+        savedDialog.setDisable(false);
+        mainPageAnchor.setDisable(true);
+        savingText.setText("Now saving... Please wait...");
         File selectedDirectory = directoryChooser.showDialog(null);
-        File parentDirectory = new File("src\\park_Pictures_Folder");
+        String currentDir = null;
+        try {
+            currentDir = new File(".").getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File parentDirectory = new File(currentDir+"\\park_Pictures_Folder");
         File[] files = parentDirectory.listFiles();
         BufferedImage image = null;
-        int x = 0;
-        while(x<files.length){
-            try {
-                FileInputStream input = new FileInputStream(files[x]);
-                image = ImageIO.read(input);
-                ImageIO.write(image,"png",new File(selectedDirectory+"\\"+files[x].getName()));
-            }
-            catch(IOException e){
+        if(selectedDirectory!=null) {
 
+
+            int x = 0;
+            while (x < files.length) {
+
+                try {
+                    FileInputStream input = new FileInputStream(files[x]);
+                    image = ImageIO.read(input);
+                    ImageIO.write(image, "png", new File(selectedDirectory + "\\" + files[x].getName()));
+                } catch (IOException e) {
+
+                }
+
+                x++;
             }
-            x++;
+            savingText.setText("Saving complete!");
         }
+        else{
+            savingText.setText("Operation canceled");
+        }
+
+    }
+
+    public void closeSavedDialog(){
+        mainPageAnchor.setDisable(false);
+        savedDialog.setVisible(false);
+        savedDialog.setDisable(true);
     }
 
 
